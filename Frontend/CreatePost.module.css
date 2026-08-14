@@ -1,0 +1,95 @@
+/* CreatePost.module.css */
+
+.card {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.top {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.textarea {
+  flex: 1;
+  border: 1.5px solid var(--beige-200);
+  border-radius: 14px;
+  padding: 11px 14px;
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  color: var(--charcoal);
+  background: var(--cream);
+  resize: none;
+  outline: none;
+  transition: all var(--dur-fast);
+  line-height: 1.5;
+}
+.textarea:focus {
+  border-color: var(--light-beige);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(139,115,85,0.10);
+}
+.textarea::placeholder { color: var(--charcoal-300); }
+
+.expanded {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.typeRow {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.typeBtn {
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--beige-200);
+  background: white;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--charcoal-500);
+  cursor: pointer;
+  transition: all var(--dur-fast);
+}
+.typeBtn:hover { border-color: var(--blue-300); color: var(--dark-beige); }
+.typeBtnActive {
+  background: var(--beige-50) !important;
+  border-color: var(--light-beige) !important;
+  color: var(--mid-beige) !important;
+  font-weight: 600;
+}
+
+.imageRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.imagePreview {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--beige-200);
+  max-height: 200px;
+}
+.imagePreview img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.bottomRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 4px;
+  border-top: 1px solid var(--cream-dark);
+}
+
+.bottomLeft { display: flex; gap: 4px; }
