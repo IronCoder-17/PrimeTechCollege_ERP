@@ -1,0 +1,69 @@
+/* FeedPage.module.css */
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 24px;
+  align-items: start;
+}
+
+.feedCol {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filterTabs {
+  display: flex;
+  gap: 6px;
+  background: var(--surface-0);
+  border: 1px solid var(--beige-200);
+  border-radius: var(--radius-pill);
+  padding: 5px;
+  width: fit-content;
+}
+
+.filterTab {
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-display);
+  color: var(--charcoal-400);
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-smooth);
+  white-space: nowrap;
+}
+.filterTab:hover { color: var(--charcoal); background: var(--cream-dark); }
+.filterTabActive {
+  background: var(--dark-beige) !important;
+  color: white !important;
+  box-shadow: 0 2px 8px rgba(139,115,85,0.25);
+}
+
+.loadingCenter {
+  display: flex;
+  justify-content: center;
+  padding: 48px;
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sidebarWidgets {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: calc(var(--topbar-h) + 20px);
+}
+
+@media (max-width: 1024px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebarWidgets { display: none; }
+}
