@@ -1,0 +1,59 @@
+.page { animation: fadeInUp 0.4s var(--ease-smooth) both; }
+.pageHeader { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.pageTitle { font-family: var(--font-display); font-size: 24px; font-weight: 800; color: var(--charcoal); }
+.semTabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.semBtn { padding: 8px 18px; border-radius: var(--radius-pill); border: 1.5px solid var(--beige-200); background: white; font-size: 13px; font-weight: 600; font-family: var(--font-display); color: var(--charcoal-400); cursor: pointer; transition: all var(--dur-fast); }
+.semBtn:hover { border-color: var(--dark-beige); color: var(--dark-beige); }
+.semActive { background: var(--dark-beige); color: white; border-color: var(--dark-beige); }
+.semActive:hover { color: white; }
+.resultGrid { display: grid; grid-template-columns: 260px 1fr; gap: 20px; align-items: start; }
+.sgpaCard { padding: 32px 24px; text-align: center; }
+.sgpaLabel { font-size: 11px; font-weight: 700; color: var(--charcoal-400); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+.sgpaValue { font-family: var(--font-display); font-size: 56px; font-weight: 900; color: var(--soft-gold); line-height: 1; }
+.sgpaSub { font-size: 12px; color: var(--charcoal-300); margin-top: 8px; }
+.cgpaBadge { display: inline-block; margin-top: 20px; background: var(--beige-50); border: 1px solid var(--beige-200); border-radius: var(--radius-pill); padding: 6px 16px; font-size: 13px; font-weight: 700; color: var(--dark-beige); }
+.subjectCard { padding: 24px; }
+.cardTitle { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--charcoal); margin-bottom: 16px; }
+.subjectTable { display: flex; flex-direction: column; gap: 0; }
+.tableHead { display: grid; grid-template-columns: 1fr 70px 80px 70px; gap: 8px; padding: 8px 12px; font-size: 11px; font-weight: 700; color: var(--charcoal-400); text-transform: uppercase; border-bottom: 1px solid var(--beige-100); margin-bottom: 4px; }
+.tableRow { display: grid; grid-template-columns: 1fr 70px 80px 70px; gap: 8px; align-items: center; padding: 12px; border-radius: var(--radius-md); transition: background var(--dur-fast); }
+.tableRow:hover { background: var(--cream-dark); }
+.subjectName { font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--charcoal); }
+.credits { font-size: 13px; color: var(--charcoal-400); }
+.gradeChip { font-size: 13px; font-weight: 800; font-family: var(--font-display); border-radius: var(--radius-sm); padding: 4px 10px; text-align: center; }
+.points { font-size: 13px; font-weight: 700; color: var(--charcoal); }
+@media (max-width: 768px) { .resultGrid { grid-template-columns: 1fr; } }
+
+/* ── Dynamic Results Page additions ─────────────────────────── */
+.currentSemCard { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; padding: 20px 24px; margin-bottom: 24px; }
+.currentSemInfo { display: flex; flex-wrap: wrap; gap: 28px; }
+.currentSemItem { display: flex; flex-direction: column; gap: 2px; }
+.currentSemLabel { font-size: 11px; font-weight: 700; color: var(--charcoal-400); text-transform: uppercase; letter-spacing: 0.5px; }
+.currentSemValue { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--charcoal); }
+.cgpaPill { display: flex; flex-direction: column; align-items: center; padding: 10px 22px; border-radius: var(--radius-md); background: var(--beige-50); border: 1px solid var(--beige-200); }
+.cgpaPillValue { font-family: var(--font-display); font-size: 30px; font-weight: 900; color: var(--soft-gold); line-height: 1; }
+.cgpaPillLabel { font-size: 11px; font-weight: 700; color: var(--charcoal-400); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+
+.tableHeadWide { display: grid; grid-template-columns: 70px 1.6fr 90px 70px 60px 90px; gap: 8px; padding: 8px 12px; font-size: 11px; font-weight: 700; color: var(--charcoal-400); text-transform: uppercase; border-bottom: 1px solid var(--beige-100); margin-bottom: 4px; }
+.tableRowWide { display: grid; grid-template-columns: 70px 1.6fr 90px 70px 60px 90px; gap: 8px; align-items: center; padding: 12px; border-radius: var(--radius-md); transition: background var(--dur-fast); }
+.tableRowWide:hover { background: var(--cream-dark); }
+
+.statusBadge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: var(--radius-pill); width: fit-content; }
+.statusPass { background: #ecfdf5; color: #10b981; }
+.statusFail { background: #fff1f2; color: #e05a5a; }
+.statusAtkt { background: #fff7ed; color: #e08a3c; }
+.statusPending { background: var(--beige-50); color: var(--charcoal-400); }
+
+.tableHeadFull { display: grid; grid-template-columns: 70px 1.3fr 65px 65px 65px 65px 55px 90px; gap: 6px; padding: 8px 12px; font-size: 11px; font-weight: 700; color: var(--charcoal-400); text-transform: uppercase; border-bottom: 1px solid var(--beige-100); margin-bottom: 4px; }
+.tableRowFull { display: grid; grid-template-columns: 70px 1.3fr 65px 65px 65px 65px 55px 90px; gap: 6px; align-items: center; padding: 12px; border-radius: var(--radius-md); transition: background var(--dur-fast); }
+.tableRowFull:hover { background: var(--cream-dark); }
+.metaRow { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 10px; font-size: 12px; color: var(--charcoal-400); }
+.metaRow b { color: var(--charcoal); font-weight: 700; }
+
+.resultActions { display: flex; justify-content: flex-end; margin-bottom: 14px; }
+.downloadBtn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: var(--radius-pill); border: 1.5px solid var(--beige-200); background: white; font-size: 13px; font-weight: 700; color: var(--dark-beige); cursor: pointer; transition: all var(--dur-fast); }
+.downloadBtn:hover { border-color: var(--dark-beige); background: var(--cream-dark); }
+
+.progressGraphCard { padding: 24px; margin-top: 20px; }
+.emptyState { padding: 40px 12px; text-align: center; color: var(--charcoal-400); font-size: 13px; }
+
