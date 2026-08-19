@@ -1,0 +1,461 @@
+/* ============================================================
+   EditProfilePage.module.css
+   PrimeTech College Campus Connect
+   ============================================================ */
+
+/* ── Page shell ─────────────────────────────────────────────── */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+/* ── Page header ─────────────────────────────────────────────── */
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.pageTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+}
+
+.pageSubtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.pageActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.savedMsg {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: #16a34a;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Layout grid ─────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+.leftCol,
+.rightCol {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Section card ────────────────────────────────────────────── */
+.sectionCard {
+  padding: 20px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.sectionIconWrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.sectionBody {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── Photo card ──────────────────────────────────────────────── */
+.photoCard {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.photoWrap {
+  position: relative;
+  margin-bottom: 4px;
+}
+
+.profilePhoto {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--border-subtle);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+}
+
+.photoEditBtn {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--dark-beige);
+  color: white;
+  border: 2px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.photoEditBtn:hover { background: var(--mid-beige); }
+
+.photoName {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.photoEnroll {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0;
+  font-family: monospace;
+  letter-spacing: 0.05em;
+}
+
+.photoUploadBtn {
+  margin-top: 8px;
+  width: 100%;
+  justify-content: center;
+}
+
+.photoHint {
+  font-size: 11px;
+  color: var(--text-muted, #9ca3af);
+  margin: 0;
+}
+
+/* ── Field ───────────────────────────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.fieldLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.fieldIcon {
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.readOnlyTag {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-muted, #9ca3af);
+  background: var(--beige-50, #fdf6ec);
+  padding: 1px 6px;
+  border-radius: 4px;
+  text-transform: none;
+  letter-spacing: 0;
+  border: 1px solid var(--border-subtle);
+}
+
+.readOnlyVal {
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 500;
+  padding: 9px 12px;
+  background: var(--beige-50, #fdf6ec);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.input {
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 14px;
+  color: var(--text-primary);
+  background: var(--surface-card);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: var(--dark-beige);
+  box-shadow: 0 0 0 3px rgba(139,115,85,0.10);
+}
+
+.inputError { border-color: #e05a5a !important; }
+
+.textarea {
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 14px;
+  color: var(--text-primary);
+  background: var(--surface-card);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: 8px;
+  outline: none;
+  resize: vertical;
+  font-family: inherit;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.textarea:focus {
+  border-color: var(--dark-beige);
+  box-shadow: 0 0 0 3px rgba(139,115,85,0.10);
+}
+
+.fieldError {
+  font-size: 12px;
+  color: #e05a5a;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+}
+
+/* ── Fields grid ─────────────────────────────────────────────── */
+.fieldsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 600px) {
+  .fieldsGrid { grid-template-columns: 1fr; }
+}
+
+/* ── Password field ──────────────────────────────────────────── */
+.passWrap {
+  position: relative;
+}
+
+.passWrap .input { padding-right: 40px; }
+
+.eyeBtn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.passHint {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0 0 4px;
+}
+
+/* ── Documents list ──────────────────────────────────────────── */
+.docsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.docItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--beige-50, #fdf6ec);
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+}
+
+.docInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.docName {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.docUploadSection {
+  margin-top: 6px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.docUploadLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 8px;
+}
+
+/* ── Fee grid ────────────────────────────────────────────────── */
+.feeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 500px) {
+  .feeGrid { grid-template-columns: 1fr 1fr; }
+}
+
+.feeItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  background: var(--beige-50, #fdf6ec);
+  border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+  text-align: center;
+  gap: 4px;
+}
+
+.feeLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.feeVal {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* ── Payment history ─────────────────────────────────────────── */
+.payHistory {
+  margin-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 14px;
+}
+
+.payHistoryTitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 10px;
+}
+
+.payRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--beige-50, #fdf6ec);
+  border: 1px solid var(--border-subtle);
+  margin-bottom: 8px;
+}
+
+.payMode {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.payDate {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.payId {
+  font-size: 11px;
+  color: var(--text-muted, #9ca3af);
+  font-family: monospace;
+  margin-top: 2px;
+}
+
+.payAmount {
+  font-size: 14px;
+  font-weight: 700;
+  color: #16a34a;
+  margin-bottom: 4px;
+}
+
+/* ── Bottom action bar ───────────────────────────────────────── */
+.bottomActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 4px;
+}
