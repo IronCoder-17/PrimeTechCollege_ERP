@@ -1,0 +1,537 @@
+/* ============================================================
+   AdmissionPage.module.css — PrimeTech College Admission
+   Gold + Navy theme consistent with PrimetechLoginPage
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Raleway:wght@300;400;500;600;700&display=swap');
+
+/* ── Root variables ── */
+:root {
+  --gold:      #C9963C;
+  --gold-dk:   #a07828;
+  --gold-lt:   #f5e5c0;
+  --navy:      #0f1c3a;
+  --navy-lt:   #1a2d5a;
+  --red:       #c62828;
+  --green:     #16a34a;
+  --surface:   #ffffff;
+  --border:    #e5e7eb;
+  --text:      #1f2937;
+  --muted:     #6b7280;
+  --radius:    12px;
+  --shadow:    0 4px 24px rgba(0,0,0,0.10);
+}
+
+/* ── Page ── */
+.page {
+  min-height: 100vh;
+  background: #f4f6fb;
+  font-family: 'Raleway', sans-serif;
+  color: var(--text);
+}
+
+/* ── Navbar ── */
+.navbar {
+  background: var(--navy);
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.navLogoImg { height: 36px; object-fit: contain; }
+.navTitle {
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  color: var(--gold);
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+.navLogin {
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 6px 16px;
+  border: 1px solid var(--gold);
+  border-radius: 20px;
+  transition: all .2s;
+}
+.navLogin:hover { background: var(--gold); color: var(--navy); }
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-lt) 100%);
+  padding: 40px 32px 32px;
+  text-align: center;
+  border-bottom: 3px solid var(--gold);
+}
+.heroTitle {
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  color: white;
+  margin: 0 0 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.heroSub { color: var(--gold); font-size: 14px; margin: 0; letter-spacing: .5px; }
+
+/* ── Stepper ── */
+.stepperWrap {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 20px 32px;
+}
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+}
+.stepItem {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex: 1;
+}
+.stepCircle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--border);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  flex-shrink: 0;
+  transition: all .25s;
+  z-index: 2;
+}
+.stepActive .stepCircle {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: white;
+  box-shadow: 0 0 0 4px #f5e5c055;
+}
+.stepDone .stepCircle {
+  background: var(--green);
+  border-color: var(--green);
+  color: white;
+}
+.stepLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-left: 8px;
+  white-space: nowrap;
+}
+.stepActive .stepLabel { color: var(--gold); }
+.stepDone  .stepLabel  { color: var(--green); }
+.stepLine {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  margin: 0 8px;
+}
+.stepDone .stepLine { background: var(--green); }
+
+/* ── Main container ── */
+.container {
+  max-width: 760px;
+  margin: 32px auto;
+  padding: 0 16px 40px;
+}
+.card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+/* ── Section (each step body) ── */
+.section {
+  padding: 32px;
+}
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--gold-lt);
+}
+
+/* ── Fields ── */
+.field { margin-bottom: 18px; }
+.label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.req { color: var(--red); }
+.optional { font-weight: 400; color: var(--muted); font-size: 11px; }
+
+.input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-family: 'Raleway', sans-serif;
+  color: var(--text);
+  background: #fafafa;
+  transition: border .2s, box-shadow .2s;
+  box-sizing: border-box;
+  outline: none;
+}
+.input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,150,60,.13);
+  background: white;
+}
+.inputErr { border-color: var(--red) !important; }
+.textarea { resize: vertical; min-height: 80px; }
+
+.err {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--red);
+  margin-top: 4px;
+}
+
+/* ── Grid rows ── */
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media(max-width:600px) {
+  .row2, .row3 { grid-template-columns: 1fr; }
+}
+
+/* ── Course badge ── */
+.courseBadge {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: #f9fafb;
+  margin-bottom: 18px;
+  border-left-width: 4px;
+}
+.courseBadgeIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.courseBadgeName { font-weight: 700; font-size: 14px; color: var(--navy); }
+.courseBadgeMeta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* ── Fee preview box ── */
+.feePreview {
+  background: linear-gradient(135deg, #fffdf5, #fff8e7);
+  border: 1.5px solid var(--gold-lt);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.feePreviewTitle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold-dk);
+  padding: 12px 16px;
+  background: var(--gold-lt);
+  border-bottom: 1px solid #e8d5a8;
+}
+.feePreviewBody { padding: 14px 16px; }
+.feeRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 5px 0;
+  color: var(--text);
+}
+.feeCourseName { font-weight: 600; font-size: 12px; max-width: 60%; text-align: right; }
+.feeAmt { font-weight: 600; color: var(--navy); }
+.feeDivider { border-top: 1px dashed #d1b56b; margin: 8px 0; }
+.feeTotal { font-weight: 700; font-size: 15px; color: var(--gold-dk); }
+
+/* ── File upload ── */
+.docNote { font-size: 12px; color: var(--muted); margin: -12px 0 16px; }
+.fileWrap { display: flex; align-items: center; gap: 12px; }
+.fileLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border: 1.5px dashed var(--border);
+  border-radius: 10px;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .2s;
+  background: #f9fafb;
+  font-family: 'Raleway', sans-serif;
+}
+.fileLabel:hover { border-color: var(--gold); color: var(--gold-dk); background: var(--gold-lt); }
+.fileOk {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--green);
+  font-weight: 600;
+}
+
+/* ── Summary box ── */
+.summaryBox {
+  background: #f9fafb;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.summaryTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 14px;
+  font-family: 'Cinzel', serif;
+}
+.summaryGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.summaryItem { display: flex; flex-direction: column; gap: 2px; }
+.summaryKey { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+.summaryVal { font-size: 14px; font-weight: 600; color: var(--text); }
+.feeBreakdown {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  border: 1px solid var(--border);
+}
+
+/* ── Payment ── */
+.payOptions { margin-bottom: 16px; }
+.payOptionsTitle { font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .5px; }
+.payChips { display: flex; flex-wrap: wrap; gap: 8px; }
+.payChip {
+  padding: 5px 12px;
+  background: #f3f4f6;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+  border: 1px solid var(--border);
+}
+
+.rzpNote {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  padding: 10px 14px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+/* ── Buttons ── */
+.btnRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  gap: 12px;
+}
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 24px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dk));
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  transition: opacity .2s, transform .15s;
+  letter-spacing: .3px;
+}
+.btnPrimary:hover { opacity: .9; transform: translateY(-1px); }
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 20px;
+  background: transparent;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 600;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  transition: all .2s;
+}
+.btnSecondary:hover { border-color: var(--navy); background: #f3f4f6; }
+.btnPay {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  transition: opacity .2s, transform .15s;
+  letter-spacing: .3px;
+}
+.btnPay:hover:not(:disabled) { opacity: .9; transform: translateY(-1px); }
+.btnPay:disabled { opacity: .6; cursor: not-allowed; }
+.payBtnGroup { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+.rzpBtnWrap { display: flex; align-items: center; }
+.btnPrimary:disabled { opacity: .6; cursor: not-allowed; }
+
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Error box ── */
+.errBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--red);
+  margin-bottom: 12px;
+}
+
+/* ── Success / Confirmation ── */
+.successSection {
+  padding: 40px 32px;
+  text-align: center;
+}
+.successIcon { margin-bottom: 16px; }
+.successTitle {
+  font-family: 'Cinzel', serif;
+  font-size: 22px;
+  color: var(--navy);
+  margin: 0 0 8px;
+}
+.successSub { color: var(--muted); font-size: 14px; margin: 0 0 28px; }
+
+.credBox {
+  background: linear-gradient(135deg, var(--navy), var(--navy-lt));
+  border-radius: 14px;
+  padding: 24px;
+  text-align: left;
+  margin-bottom: 20px;
+  color: white;
+}
+.credTitle {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  color: var(--gold);
+  margin-bottom: 16px;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+.credRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.credKey { font-size: 12px; color: #9ca3af; font-weight: 500; }
+.credVal {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gold);
+  font-family: 'Courier New', monospace;
+}
+.credNote { font-size: 11px; color: #f87171; margin-top: 12px; margin-bottom: 0; }
+
+.receiptBox {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  text-align: left;
+  margin-bottom: 24px;
+}
+.receiptTitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+.receiptRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 5px 0;
+  color: var(--text);
+  border-bottom: 1px dashed var(--border);
+}
+.receiptRow:last-child { border-bottom: none; }
+
+.successBtns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+/* ── One-time fees note ── */
+.oneTimeFees {
+  max-width: 760px;
+  margin: 0 auto 32px;
+  padding: 10px 16px;
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #92400e;
+  text-align: center;
+}

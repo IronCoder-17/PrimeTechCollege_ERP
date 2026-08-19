@@ -1,0 +1,330 @@
+/* ============================================================
+   FeeStructurePage — "Fee Structure" page
+   Works both inside AppLayout (logged-in) and as a public
+   standalone page (public /fee-structure route).
+   ============================================================ */
+
+.page {
+  animation: fadeInUp 0.4s ease both;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* When rendered as a standalone public page (no AppLayout wrapper),
+   add padding so the content isn't flush against the viewport */
+:global(body) .page:not(:global(.app-layout) .page) {
+  padding: 40px 32px;
+}
+
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.pageIconWrap {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  background: #FFF8ED;
+  color: #C9963C;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid #ECE3D4;
+}
+.pageTitle {
+  font-size: 24px;
+  font-weight: 800;
+  color: #1C1714;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+.pageSub {
+  font-size: 13px;
+  color: #8A7066;
+  margin: 4px 0 0;
+}
+
+/* ── Status Banner ── */
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FFF8ED;
+  border: 1px solid #EADCC0;
+  color: #8A6820;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 11px 16px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  min-height: 20px;
+}
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* ── Action Buttons ── */
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.downloadBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #C9963C 0%, #A67C2A 100%);
+  color: #fff;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(201,150,60,0.3);
+  transition: all 0.18s ease;
+}
+.downloadBtn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(201,150,60,0.4);
+}
+.downloadBtn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.refreshBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  color: #3E3228;
+  border: 1.5px solid #E5DCCB;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.refreshBtn:hover:not(:disabled) { border-color: #C9963C; color: #8A6820; }
+.refreshBtn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* ── Error Card ── */
+.errorCard {
+  background: #FBEAEA;
+  border: 1px solid #F0C9C9;
+  color: #B3261E;
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  margin-bottom: 20px;
+}
+
+/* ── Sections ── */
+.section { margin-bottom: 30px; }
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1C1714;
+  margin: 0 0 12px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ECE3D4;
+}
+
+/* ── Fee Tables ── */
+.tableWrap {
+  background: #FDFCFA;
+  border: 1.5px solid #ECE3D4;
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 480px;
+}
+.table thead tr { background: #F5EFE6; }
+.table th {
+  text-align: left;
+  padding: 11px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #8A6820;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #ECE3D4;
+  white-space: nowrap;
+}
+.table td {
+  padding: 11px 16px;
+  border-bottom: 1px solid #F4EFE5;
+  color: #3E3228;
+  vertical-align: middle;
+}
+.table tbody tr:last-child td { border-bottom: none; }
+.table tbody tr:hover { background: #FFFBF5; }
+
+.notes {
+  white-space: normal !important;
+  color: #9A8070;
+  font-size: 11.5px;
+}
+.empty {
+  text-align: center;
+  color: #BBA898;
+  padding: 28px;
+  white-space: normal !important;
+  font-size: 13px;
+}
+
+/* ── Footer note ── */
+.footnote {
+  font-size: 12px;
+  color: #BBA898;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* ── Public wrapper (no AppLayout) ── */
+.publicWrapper {
+  min-height: 100vh;
+  background: #FAFAF8;
+  padding: 0;
+}
+.publicNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 64px;
+  background: #1C1714;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.publicNavBrand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+}
+.publicNavBrandIcon {
+  width: 34px; height: 34px;
+  background: #C9963C;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+.publicNavActions { display: flex; gap: 10px; }
+.publicNavBack {
+  display: flex; align-items: center; gap: 6px;
+  color: rgba(255,255,255,0.75);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 14px;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 8px;
+  transition: all 0.15s ease;
+}
+.publicNavBack:hover { color: #fff; border-color: #C9963C; }
+.publicContent { padding: 36px 40px; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 640px) {
+  .publicNav { padding: 0 20px; }
+  .publicContent { padding: 24px 18px; }
+  .pageTitle { font-size: 20px; }
+}
+
+/* ── Tab Bar ── */
+.tabBar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  border: 1.5px solid #E8DDD0;
+  border-radius: 30px;
+  background: #FAFAF8;
+  color: #6B5B4D;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.tab:hover { border-color: #C9963C; color: #8A6820; background: #FFF8ED; }
+.tabActive {
+  background: #C9963C;
+  border-color: #C9963C;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(201,150,60,0.3);
+}
+
+/* ── Cell helpers ── */
+.bold  { font-weight: 700; color: #1C1714; }
+.amt   { font-weight: 700; color: #2563eb; }
+.total { font-weight: 800; color: #16a34a; font-size: 14px; }
+.muted { color: #8A7066; }
+
+.chip {
+  display: inline-block;
+  padding: 2px 10px;
+  background: #EFF6FF;
+  color: #2563eb;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* ── Transport grid ── */
+.transportGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+.transportCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: #FDFCFA;
+  border: 1.5px solid #ECE3D4;
+  border-radius: 12px;
+  transition: all 0.18s ease;
+}
+.transportCard:hover {
+  border-color: #C9963C;
+  box-shadow: 0 4px 14px rgba(201,150,60,0.12);
+  transform: translateY(-2px);
+}
+.transportIcon {
+  width: 42px; height: 42px;
+  background: #FFF8ED;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: #C9963C;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .tabBar { gap: 6px; }
+  .tab { padding: 8px 13px; font-size: 12px; }
+  .transportGrid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 420px) {
+  .transportGrid { grid-template-columns: 1fr; }
+}

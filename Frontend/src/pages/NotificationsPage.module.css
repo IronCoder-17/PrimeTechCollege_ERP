@@ -1,0 +1,21 @@
+.page { animation: fadeInUp 0.4s var(--ease-smooth) both; max-width: 760px; }
+.pageHeader { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.pageTitle { font-family: var(--font-display); font-size: 24px; font-weight: 800; color: var(--charcoal); flex: 1; }
+.markAllBtn { display: flex; align-items: center; gap: 5px; padding: 8px 14px; border: 1.5px solid var(--beige-200); border-radius: var(--radius-pill); background: white; font-size: 12px; font-weight: 600; font-family: var(--font-display); color: var(--charcoal-500); cursor: pointer; transition: all var(--dur-fast); }
+.markAllBtn:hover { border-color: var(--dark-beige); color: var(--dark-beige); }
+.filterRow { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.filterBtn { padding: 7px 16px; border-radius: var(--radius-pill); border: 1.5px solid var(--beige-200); background: white; font-size: 12px; font-weight: 600; font-family: var(--font-display); color: var(--charcoal-400); cursor: pointer; transition: all var(--dur-fast); text-transform: capitalize; }
+.filterBtn:hover { border-color: var(--dark-beige); color: var(--dark-beige); }
+.filterActive { background: var(--dark-beige); color: white; border-color: var(--dark-beige); }
+.notifList { display: flex; flex-direction: column; gap: 10px; }
+.notifCard { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; position: relative; cursor: pointer; transition: all var(--dur-fast); }
+.notifCard:hover { transform: translateY(-1px); box-shadow: var(--shadow-card-hover); }
+.unread { background: var(--beige-50) !important; border-color: var(--beige-200) !important; }
+.notifEmoji { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+.notifContent { flex: 1; min-width: 0; }
+.notifTitle { display: block; font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--charcoal); margin-bottom: 4px; }
+.notifBody { display: block; font-size: 13px; color: var(--charcoal-500); line-height: 1.5; margin-bottom: 8px; }
+.notifMeta { display: flex; align-items: center; gap: 10px; }
+.notifType { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; background: var(--beige-100); color: var(--dark-beige); border-radius: var(--radius-pill); padding: 2px 8px; }
+.notifTime { font-size: 11px; color: var(--charcoal-400); }
+.unreadDot { width: 10px; height: 10px; border-radius: 50%; background: var(--soft-gold); flex-shrink: 0; margin-top: 6px; }

@@ -1,0 +1,28 @@
+.page { animation: fadeInUp 0.4s var(--ease-smooth) both; }
+.pageHeader { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.pageTitle { font-family: var(--font-display); font-size: 24px; font-weight: 800; color: var(--charcoal); }
+.controls { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+.searchWrap { position: relative; flex: 1; min-width: 200px; }
+.searchIcon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--charcoal-300); }
+.searchInput { width: 100%; padding: 10px 14px 10px 36px; border: 1.5px solid var(--beige-200); border-radius: var(--radius-pill); font-size: 14px; font-family: var(--font-body); background: white; outline: none; transition: all var(--dur-fast); }
+.searchInput:focus { border-color: var(--dark-beige); box-shadow: 0 0 0 3px rgba(139,115,85,0.10); }
+.filters { display: flex; gap: 6px; }
+.filterBtn { padding: 8px 16px; border-radius: var(--radius-pill); border: 1.5px solid var(--beige-200); background: white; font-size: 12px; font-weight: 600; font-family: var(--font-display); color: var(--charcoal-400); cursor: pointer; transition: all var(--dur-fast); }
+.filterBtn:hover { border-color: var(--dark-beige); color: var(--dark-beige); }
+.filterActive { background: var(--dark-beige); color: white; border-color: var(--dark-beige); }
+.filterActive:hover { color: white; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.placementCard { padding: 20px; display: flex; flex-direction: column; gap: 12px; transition: all var(--dur-normal) var(--ease-spring); }
+.placementCard:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.cardTop { display: flex; align-items: center; gap: 12px; }
+.compLogo { width: 48px; height: 48px; border-radius: var(--radius-md); font-size: 20px; font-weight: 900; font-family: var(--font-display); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.compInfo { flex: 1; }
+.compName { display: block; font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--charcoal); }
+.compRole { display: block; font-size: 13px; color: var(--charcoal-400); }
+.ctcBadge { background: #ecfdf5; color: #059669; font-size: 12px; font-weight: 700; font-family: var(--font-display); border-radius: var(--radius-pill); padding: 4px 10px; white-space: nowrap; }
+.tagRow { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 10px; font-weight: 600; background: var(--beige-100); color: var(--dark-beige); border-radius: var(--radius-pill); padding: 3px 9px; }
+.cardBottom { display: flex; align-items: center; justify-content: space-between; padding-top: 8px; border-top: 1px solid var(--beige-100); }
+.deadline { font-size: 12px; color: var(--charcoal-400); }
+.applyBtn { display: flex; align-items: center; gap: 4px; padding: 7px 16px; background: var(--dark-beige); color: white; border: none; border-radius: var(--radius-pill); font-size: 12px; font-weight: 700; font-family: var(--font-display); cursor: pointer; transition: all var(--dur-fast); }
+.applyBtn:hover { background: var(--mid-beige); transform: translateY(-1px); }
