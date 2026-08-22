@@ -248,6 +248,20 @@
   text-decoration: none;
 }
 .iconBtn:hover { background: var(--beige-100); color: var(--dark-beige); }
+.telegramIconBtn {
+  position: relative;
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: #e8f6fd; border: 1.5px solid #bfe6f7;
+  cursor: pointer; text-decoration: none;
+  transition: transform var(--dur-fast), box-shadow var(--dur-fast), background var(--dur-fast);
+}
+.telegramIconBtn:hover {
+  background: #d4eefb;
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 6px 16px rgba(34,158,217,0.30);
+}
+.telegramIconBtn:active { transform: translateY(0) scale(0.96); }
 .notifDot {
   position: absolute; top: 7px; right: 7px;
   width: 7px; height: 7px;
