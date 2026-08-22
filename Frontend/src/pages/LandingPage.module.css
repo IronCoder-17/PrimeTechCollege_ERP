@@ -510,6 +510,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
   background: var(--cream-dark);
 }
 
@@ -518,6 +520,30 @@
 .footerLinks { display: flex; gap: 20px; }
 .footerLinks a { font-size: 13px; color: var(--charcoal-400); }
 .footerLinks a:hover { color: var(--dark-beige); }
+
+/* ── Telegram Bot Button ── */
+.telegramBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #229ED9;
+  color: #fff !important;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(34, 158, 217, 0.30);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.telegramBtn svg { flex-shrink: 0; }
+.telegramBtn:hover {
+  background: #1e8ec2;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 8px 20px rgba(34, 158, 217, 0.40);
+}
+.telegramBtn:active { transform: translateY(0) scale(0.98); }
+.telegramBtn:focus-visible { outline: 2px solid #229ED9; outline-offset: 2px; }
 
 /* ── Responsive ── */
 @media (max-width: 1024px) {
@@ -534,7 +560,8 @@
   .nav { padding: 0 20px; }
   .featuresGrid, .testimonialsGrid { grid-template-columns: 1fr; }
   .photoGrid { grid-template-columns: repeat(2, 1fr); }
-  .footer { flex-direction: column; gap: 12px; text-align: center; }
+  .footer { flex-direction: column; gap: 14px; text-align: center; }
+  .telegramBtn { width: 100%; justify-content: center; }
   .heroStats { gap: 20px; }
   .navLinks a:not(:last-child):not(:nth-last-child(2)) { display: none; }
   .heroContent { width: 100%; max-width: 100%; }
