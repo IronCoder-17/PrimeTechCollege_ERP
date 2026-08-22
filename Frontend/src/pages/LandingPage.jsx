@@ -685,7 +685,7 @@ export default function LandingPage() {
           <a href="#">Support</a>
         </div>
         <a
-          href="https://t.me/PrimeTechCollegeBot"
+          href="http://t.me/Primetechcollege_bot"
           target="_blank"
           rel="noopener noreferrer"
           className={styles.telegramBtn}
