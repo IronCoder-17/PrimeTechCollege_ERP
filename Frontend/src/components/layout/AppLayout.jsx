@@ -138,6 +138,22 @@ export default function AppLayout() {
             />
           </div>
           <div className={styles.topbarRight}>
+            <a
+              href="https://t.me/PrimeTechCollegeBot"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.telegramIconBtn}
+              title="Chat with us on Telegram"
+              aria-label="Chat with us on Telegram"
+            >
+              <svg viewBox="0 0 240 240" width="18" height="18" aria-hidden="true" focusable="false">
+                <circle cx="120" cy="120" r="120" fill="#229ED9" />
+                <path
+                  fill="#fff"
+                  d="M170.6 72.6 149 178.1c-1.6 7.2-5.9 9-11.9 5.6l-33-24.3-15.9 15.3c-1.8 1.8-3.3 3.3-6.7 3.3l2.4-33.9 61.7-55.8c2.7-2.4-.6-3.7-4.2-1.3l-76.3 48-32.8-10.3c-7.1-2.2-7.3-7.1 1.5-10.6l128.2-49.4c6-2.2 11.2 1.4 9.3 10z"
+                />
+              </svg>
+            </a>
             <NavLink to="/notifications" className={styles.iconBtn} title="Notifications">
               <Bell size={17} />
               <span className={styles.notifDot} />
