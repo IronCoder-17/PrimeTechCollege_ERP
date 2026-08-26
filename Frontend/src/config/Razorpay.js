@@ -5,8 +5,8 @@
 // needs to change.
 
 export const RAZORPAY_BUTTON_IDS = {
-  feeReceiptsCurrentSemester: 'pl_TLhYpsrRKYbm8G',
-  feeReceiptsNextSemester: 'pl_TLhYpsrRKYbm8G',
-  feeReceiptsPayOtherFees: 'pl_TLhYpsrRKYbm8G',
-  admissionEnrollFee: 'pl_TMSId7XeE9Xxlz',
+  feeReceiptsCurrentSemester: 'your Razorpay key API',
+  feeReceiptsNextSemester: 'your Razorpay key API',
+  feeReceiptsPayOtherFees: 'your Razorpay key API',
+  admissionEnrollFee: 'your Razorpay key API',
 };
