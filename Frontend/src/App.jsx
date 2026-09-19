@@ -34,6 +34,8 @@ import EditProfilePage    from './pages/EditProfilePage';
 import FeeReceiptsPage    from './pages/FeeReceiptsPage';
 import FeeStructurePage   from './pages/FeeStructurePage';
 import RulesRegulationsPage from './pages/RulesRegulationsPage';
+import AIAssistantPage    from './pages/AIAssistantPage';
+import SuggestionBoxPage  from './pages/SuggestionBoxPage';
 
 // Layout
 import AppLayout from './components/layout/AppLayout';
@@ -121,6 +123,8 @@ function AppRoutes() {
         <Route path="clubs"          element={<ClubsPage />} />
         <Route path="study"          element={<StudyPage />} />
         <Route path="chat"           element={<ChatPage />} />
+        <Route path="ai-assistant"   element={<AIAssistantPage />} />
+        <Route path="suggestion-box" element={<SuggestionBoxPage />} />
         <Route path="notifications"  element={<NotificationsPage />} />
         <Route path="placements"     element={<PlacementsPage />} />
         <Route path="resources"      element={<ResourcesPage />} />
