@@ -10,7 +10,8 @@ import {
   LayoutDashboard, Newspaper, BookOpen, FileText,
   Clock, BarChart2, Users, GraduationCap, MessageCircle,
   Bell, Briefcase, FolderOpen, UserCircle, Settings,
-  Search, LogOut, Menu, X, ChevronRight, CreditCard, ShieldCheck
+  Search, LogOut, Menu, X, ChevronRight, CreditCard, ShieldCheck,
+  Sparkles, Lightbulb
 } from 'lucide-react';
 import styles from './AppLayout.module.css';
 
@@ -93,6 +94,8 @@ export default function AppLayout() {
           {/* COMMUNICATION */}
           <p className={styles.navSectionLabel}>Communication</p>
           <NavLink to="/chat"          className={activeStyle} onClick={close}><MessageCircle size={15} strokeWidth={1.8}/><span>Messages</span><ChevronRight size={12} className={styles.navArrow}/></NavLink>
+          <NavLink to="/ai-assistant"  className={activeStyle} onClick={close}><Sparkles size={15} strokeWidth={1.8}/><span>AI Assistant</span><ChevronRight size={12} className={styles.navArrow}/></NavLink>
+          <NavLink to="/suggestion-box" className={activeStyle} onClick={close}><Lightbulb size={15} strokeWidth={1.8}/><span>Suggestion Box</span><ChevronRight size={12} className={styles.navArrow}/></NavLink>
           <NavLink to="/notifications" className={activeStyle} onClick={close}>
             <Bell size={15} strokeWidth={1.8}/><span>Notifications</span>
             <span className={styles.navBadge}>2</span>
