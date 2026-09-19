@@ -122,6 +122,36 @@ export const messagesApi = {
   getMessages: (convId) => nodeApi.get(`/messages/${convId}`),
 };
 
+// ── Faculty ⇄ Student Messaging (PHP, real DB-backed) ──
+// Auto-assignment: student.course_id + semester → tt_subjects →
+// tt_subjects.faculty_id. Used by both the Student "Messages" module
+// (ChatPage) and the Faculty Dashboard "Student Messages" tab.
+export const facultyChatApi = {
+  // Student → assigned faculty (one row per subject). Faculty → assigned students.
+  getContacts: () => phpApi.get('/messages.php/contacts'),
+  // subjectId + withId (facultyId for a student caller, studentId for a faculty caller)
+  getConversation: (subjectId, withId) =>
+    phpApi.get('/messages.php/conversation', { params: { subject_id: subjectId, with_id: withId } }),
+  send: (subjectId, withId, message) =>
+    phpApi.post('/messages.php/send', { subject_id: subjectId, with_id: withId, message }),
+  getUnreadCount: () => phpApi.get('/messages.php/unread-count'),
+};
+
+// ── AI Assistant (Student side, backed by OpenRouter via PHP backend) ──
+export const aiAssistantApi = {
+  // messages: [{ role: 'user' | 'assistant', content: '...' }, ...]
+  chat: (messages) => phpApi.post('/ai-assistant.php/chat', { messages }),
+};
+
+// ── Suggestion Box (Student / Faculty / Admin) ──
+export const suggestionsApi = {
+  getMine: () => phpApi.get('/suggestions.php/my'),
+  create: (data) => phpApi.post('/suggestions.php/create', data),
+  getAll: (params) => phpApi.get('/suggestions.php/admin', { params }),
+  getStats: () => phpApi.get('/suggestions.php/admin/stats'),
+  update: (id, data) => phpApi.put('/suggestions.php/admin/update', { id, ...data }),
+};
+
 // ── Notifications (Node) ──
 export const notificationsApi = {
   getAll: (userId) => nodeApi.get(`/notifications/${userId}`),
