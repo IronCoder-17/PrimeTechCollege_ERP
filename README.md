@@ -81,34 +81,7 @@ Built with a React + Vite frontend, a PHP REST API for the core modules, and a s
 
 ## Architecture
 
-The frontend talks to **two** backends over the same `/api` prefix:
-
-```
-                    ┌────────────────────────────┐
-                    │   React SPA (Vite, :5173)  │
-                    └─────────────┬──────────────┘
-                                  │  axios (phpApi / nodeApi)
-                  ┌───────────────┴───────────────┐
-                  │                               │
-        ┌─────────▼──────────┐          ┌─────────▼──────────┐
-        │  PHP REST API      │          │  Node + Socket.IO  │
-        │  backend/api/*.php │          │  backend/server.js │
-        │  auth, admin,      │          │  chat, presence,   │
-        │  fees, results,    │          │  live notifications│
-        │  admission, ...    │          │                    │
-        └─────────┬──────────┘          └─────────┬──────────┘
-                  │                               │
-                  └───────────────┬───────────────┘
-                                  │
-                        ┌─────────▼─────────┐
-                        │  MySQL            │
-                        │  college_campus   │
-                        └───────────────────┘
-```
-
-PHP endpoints use the pattern `/<script>.php/<resource>` and depend on `PATH_INFO`
-(for example `GET /api/admin.php/students`). Apache and Nginx set this natively;
-`backend/api/router.php` emulates it for PHP's built-in dev server.
+<img width="7662" height="4175" alt="diagram" src="https://github.com/user-attachments/assets/8d647091-cc6c-4a46-90fe-ddf951a9515a" />
 
 ---
 
