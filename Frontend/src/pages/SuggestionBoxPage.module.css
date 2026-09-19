@@ -1,0 +1,125 @@
+/* SuggestionBoxPage.module.css */
+
+.wrap { display: flex; flex-direction: column; gap: 20px; padding-bottom: 24px; }
+
+.pageHeader { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+.pageTitle {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--charcoal);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pageSubtitle { font-size: 13px; color: var(--charcoal-400); margin-top: 4px; }
+
+.newBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: linear-gradient(135deg, var(--dark-beige), var(--soft-gold));
+  color: white;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(139,115,85,0.30);
+  transition: transform var(--dur-fast);
+}
+.newBtn:hover { transform: translateY(-1px); }
+
+.formCard {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.formRow { display: flex; flex-direction: column; gap: 6px; }
+.formLabel { font-size: 12.5px; font-weight: 700; color: var(--charcoal-500); }
+.formActions { display: flex; gap: 10px; justify-content: flex-end; }
+
+.successBanner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.errorBanner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.list { display: flex; flex-direction: column; gap: 12px; }
+
+.suggestionCard {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.suggestionTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.suggestionTitle {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+.suggestionMeta { font-size: 11.5px; color: var(--charcoal-300); margin-top: 2px; }
+
+.suggestionDesc { font-size: 13.5px; color: var(--charcoal-500); line-height: 1.6; }
+
+.responseBox {
+  margin-top: 4px;
+  padding: 10px 14px;
+  background: var(--cream);
+  border-left: 3px solid var(--dark-beige);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: 13px;
+  color: var(--charcoal-500);
+}
+.responseLabel { font-weight: 700; color: var(--dark-beige); font-size: 11.5px; display: block; margin-bottom: 3px; }
+
+.emptyState { text-align: center; padding: 48px 20px; color: var(--charcoal-400); }
+
+.statusPending      { background: var(--gold-50); color: var(--soft-gold); }
+.statusUnderReview  { background: var(--beige-50); color: var(--dark-beige); }
+.statusInProgress   { background: #eff6ff; color: #2563eb; }
+.statusImplemented  { background: #ecfdf5; color: #059669; }
+.statusRejected     { background: #fff1f2; color: #e05a5a; }
+
+.newBadgeDot {
+  width: 8px; height: 8px; border-radius: 50%; background: #e05a5a; display: inline-block; margin-left: 6px;
+}
+
+@media (max-width: 600px) {
+  .suggestionTop { flex-direction: column; }
+}

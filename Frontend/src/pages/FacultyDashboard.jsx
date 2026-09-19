@@ -13,15 +13,16 @@ import {
   BarChart2, BookMarked, ChevronDown, ChevronUp,
   AlertCircle, PlayCircle, StopCircle, Activity,
   Hash, Percent, Star, Target, MapPin, Cpu,
-  Filter, ChevronLeft, ChevronRight, Download, CalendarCheck
+  Filter, ChevronLeft, ChevronRight, Download, CalendarCheck, Lightbulb
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import SuggestionBoxPage from './SuggestionBoxPage';
 import {
   getStudentsForFaculty, queryStudents,
   saveAttendanceBatch, getAttendanceForDate, getAttendanceHistory,
   getStudentAttendanceSummary, getMonthlyAttendanceReport,
 } from '../utils/studentMapping';
-import { facultyApi } from '../utils/api';
+import { facultyApi, facultyChatApi } from '../utils/api';
 
 // ── Static Data ─────────────────────────────────────────────
 
@@ -188,7 +189,8 @@ export default function FacultyDashboard() {
     { key: 'punch',         label: 'Punch In/Out',        icon: Timer },
     { key: 'syllabus',      label: 'Syllabus Mapping',    icon: BookMarked },
     { key: 'announcements', label: 'Announcements',       icon: Bell },
-    { key: 'queries',       label: 'Student Queries',     icon: MessageCircle },
+    { key: 'queries',       label: 'Student Messages',    icon: MessageCircle },
+    { key: 'suggestions',   label: 'Suggestion Box',      icon: Lightbulb },
     { key: 'schedule',      label: 'Schedule',            icon: CalendarDays },
     { key: 'notifications', label: 'Notifications',       icon: Bell },
     { key: 'my_profile',    label: 'My Profile',          icon: GraduationCap },
@@ -201,6 +203,83 @@ export default function FacultyDashboard() {
   const [newAnn, setNewAnn] = useState({ course: 'CS401', title: '', body: '' });
   const [showAnnForm, setShowAnnForm] = useState(false);
   const [notifications, setNotifications] = useState(INIT_NOTIFICATIONS);
+
+  // ── Student Messages (real, DB-backed) ──────────────────────
+  // Auto-assignment: for every subject assigned to this faculty member
+  // (tt_subjects.faculty_id), list every student enrolled in that
+  // subject's course + semester. Never shows students outside that set.
+  const [msgContacts, setMsgContacts] = useState([]);
+  const [msgLoading, setMsgLoading] = useState(true);
+  const [msgError, setMsgError] = useState('');
+  const [msgActive, setMsgActive] = useState(null);
+  const [msgThread, setMsgThread] = useState([]);
+  const [msgThreadLoading, setMsgThreadLoading] = useState(false);
+  const [msgInput, setMsgInput] = useState('');
+  const [msgSending, setMsgSending] = useState(false);
+  const [msgSearch, setMsgSearch] = useState('');
+
+  const loadMsgContacts = async (opts = {}) => {
+    try {
+      const { data } = await facultyChatApi.getContacts();
+      setMsgContacts(data.contacts || []);
+      setMsgError('');
+      return data.contacts || [];
+    } catch (err) {
+      setMsgError(err.response?.data?.error || 'Could not load your students.');
+      return [];
+    } finally {
+      if (!opts.silent) setMsgLoading(false);
+    }
+  };
+
+  const loadMsgThread = async (contact, opts = {}) => {
+    if (!contact) return;
+    if (!opts.silent) setMsgThreadLoading(true);
+    try {
+      const { data } = await facultyChatApi.getConversation(contact.subject_id, contact.student_id);
+      setMsgThread(data.messages || []);
+    } catch (err) {
+      if (!opts.silent) setMsgThread([]);
+    } finally {
+      if (!opts.silent) setMsgThreadLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab !== 'queries') return;
+    (async () => {
+      const list = await loadMsgContacts();
+      if (list.length > 0 && !msgActive) setMsgActive(list[0]);
+    })();
+    const id = setInterval(() => loadMsgContacts({ silent: true }), 5000);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTab]);
+
+  useEffect(() => {
+    if (activeTab !== 'queries' || !msgActive) return;
+    loadMsgThread(msgActive);
+    const id = setInterval(() => loadMsgThread(msgActive, { silent: true }), 5000);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTab, msgActive]);
+
+  const sendMsgReply = async () => {
+    const text = msgInput.trim();
+    if (!text || !msgActive || msgSending) return;
+    setMsgSending(true);
+    setMsgInput('');
+    try {
+      await facultyChatApi.send(msgActive.subject_id, msgActive.student_id, text);
+      await loadMsgThread(msgActive, { silent: true });
+      loadMsgContacts({ silent: true });
+    } catch (err) {
+      setMsgInput(text);
+      alert(err.response?.data?.error || 'Failed to send reply.');
+    } finally {
+      setMsgSending(false);
+    }
+  };
 
   // ── Real Student Directory (filtered by faculty department/specialization) ──
   const myStudents = getStudentsForFaculty(user);
@@ -1345,31 +1424,145 @@ export default function FacultyDashboard() {
 
           {/* ══════════════════ STUDENT QUERIES ══════════════════ */}
           {activeTab === 'queries' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {queries.map(q => (
-                <div key={q.id} style={{ ...card, border: `1px solid ${q.answered ? '#e5e7eb' : '#ddd6fe'}`, opacity: q.answered ? 0.75 : 1 }}>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 5 }}>
-                        <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${q.student}`} alt={q.student}
-                          style={{ width: 26, height: 26, borderRadius: '50%' }} />
-                        <span style={{ fontSize: 14, fontWeight: 600, color: '#111827' }}>{q.student}</span>
-                        <span style={{ fontSize: 11, padding: '2px 7px', background: '#f5f3ff', color: '#7c3aed', borderRadius: 20, fontWeight: 700 }}>{q.course}</span>
-                        <span style={{ fontSize: 12, color: '#9ca3af', marginLeft: 'auto' }}>{q.time}</span>
-                      </div>
-                      <p style={{ margin: 0, fontSize: 13, color: '#374151', paddingLeft: 34 }}>{q.msg}</p>
-                    </div>
-                    {!q.answered
-                      ? <button onClick={() => markAnswered(q.id)} style={{ marginLeft: 14, ...btn(false), background: '#f0fdf4', color: '#16a34a', border: '1px solid #bbf7d0', flexShrink: 0 }}>
-                          <CheckCircle size={12} /> Reply
-                        </button>
-                      : <span style={{ marginLeft: 14, fontSize: 12, color: '#16a34a', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
-                          <CheckCircle size={12} /> Answered
-                        </span>}
-                  </div>
+            <div style={{ ...card, padding: 0, overflow: 'hidden', display: 'flex', height: 560 }}>
+              {/* ── Student list (auto-filtered: only students in this faculty's assigned course+semester subjects) ── */}
+              <div style={{ width: 300, borderRight: '1px solid #e5e7eb', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ padding: 14, borderBottom: '1px solid #f3f4f6' }}>
+                  <input
+                    type="text"
+                    placeholder="Search students or subject…"
+                    value={msgSearch}
+                    onChange={e => setMsgSearch(e.target.value)}
+                    style={{ width: '100%', padding: '8px 10px', borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 13, boxSizing: 'border-box' }}
+                  />
                 </div>
-              ))}
+                <div style={{ flex: 1, overflowY: 'auto' }}>
+                  {msgLoading && (
+                    <div style={{ padding: 24, textAlign: 'center' }}><div className="spinner" style={{ width: 20, height: 20, margin: '0 auto' }} /></div>
+                  )}
+                  {!msgLoading && msgError && (
+                    <div style={{ padding: 16, fontSize: 12.5, color: '#9ca3af' }}>{msgError}</div>
+                  )}
+                  {!msgLoading && !msgError && msgContacts.length === 0 && (
+                    <div style={{ padding: 16, fontSize: 12.5, color: '#9ca3af' }}>
+                      No students are enrolled yet in a course/semester matching your assigned subjects.
+                    </div>
+                  )}
+                  {msgContacts
+                    .filter(c => !msgSearch ||
+                      c.student_name?.toLowerCase().includes(msgSearch.toLowerCase()) ||
+                      c.subject_name?.toLowerCase().includes(msgSearch.toLowerCase()))
+                    .map(c => {
+                      const isActive = msgActive && c.student_id === msgActive.student_id && c.subject_id === msgActive.subject_id;
+                      return (
+                        <div
+                          key={`${c.student_id}-${c.subject_id}`}
+                          onClick={() => setMsgActive(c)}
+                          style={{
+                            padding: '11px 14px', cursor: 'pointer', display: 'flex', gap: 10, alignItems: 'flex-start',
+                            background: isActive ? '#f5f3ff' : 'transparent', borderBottom: '1px solid #f9fafb',
+                          }}
+                        >
+                          <img
+                            src={c.profile_photo || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(c.student_name || 'Student')}`}
+                            alt={c.student_name}
+                            style={{ width: 32, height: 32, borderRadius: '50%', flexShrink: 0 }}
+                          />
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                              <span style={{ fontSize: 13, fontWeight: 600, color: '#111827', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.student_name}</span>
+                              {c.unread_count > 0 && (
+                                <span style={{ fontSize: 10, fontWeight: 700, background: '#7c3aed', color: 'white', borderRadius: 20, padding: '1px 6px', flexShrink: 0 }}>{c.unread_count}</span>
+                              )}
+                            </div>
+                            <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 1 }}>
+                              {c.course_code} · Sem {c.semester} · {c.subject_code || c.subject_name}
+                            </div>
+                            <div style={{ fontSize: 12, color: '#6b7280', marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                              {c.last_message ? `${c.last_sender_role === 'faculty' ? 'You: ' : ''}${c.last_message}` : 'No messages yet'}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
+
+              {/* ── Thread ── */}
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                {msgActive ? (
+                  <>
+                    <div style={{ padding: '13px 18px', borderBottom: '1px solid #f3f4f6', display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <img
+                        src={msgActive.profile_photo || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(msgActive.student_name || 'Student')}`}
+                        alt="" style={{ width: 30, height: 30, borderRadius: '50%' }}
+                      />
+                      <div>
+                        <div style={{ fontSize: 14, fontWeight: 600, color: '#111827' }}>{msgActive.student_name}</div>
+                        <div style={{ fontSize: 11.5, color: '#9ca3af' }}>
+                          {msgActive.gr_number ? `${msgActive.gr_number} · ` : ''}{msgActive.subject_code ? `${msgActive.subject_code} — ` : ''}{msgActive.subject_name}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ flex: 1, overflowY: 'auto', padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                      {msgThreadLoading ? (
+                        <div style={{ textAlign: 'center', padding: 24 }}><div className="spinner" style={{ width: 20, height: 20, margin: '0 auto' }} /></div>
+                      ) : msgThread.length === 0 ? (
+                        <div style={{ textAlign: 'center', color: '#9ca3af', fontSize: 13, marginTop: 20 }}>
+                          No messages yet. Reply below to start the conversation.
+                        </div>
+                      ) : (
+                        msgThread.map(m => (
+                          <div key={m.id} style={{ display: 'flex', justifyContent: m.sender_role === 'faculty' ? 'flex-end' : 'flex-start' }}>
+                            <div style={{ maxWidth: '70%' }}>
+                              <div style={{
+                                padding: '9px 13px', borderRadius: 14, fontSize: 13.5, lineHeight: 1.4,
+                                background: m.sender_role === 'faculty' ? '#7c3aed' : '#f3f4f6',
+                                color: m.sender_role === 'faculty' ? 'white' : '#111827',
+                                borderBottomRightRadius: m.sender_role === 'faculty' ? 4 : 14,
+                                borderBottomLeftRadius: m.sender_role === 'faculty' ? 14 : 4,
+                              }}>
+                                {m.message}
+                              </div>
+                              <div style={{ fontSize: 10.5, color: '#9ca3af', marginTop: 3, textAlign: m.sender_role === 'faculty' ? 'right' : 'left' }}>
+                                {new Date((m.created_at || '').replace(' ', 'T')).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      )}
+                    </div>
+
+                    <div style={{ padding: 14, borderTop: '1px solid #f3f4f6', display: 'flex', gap: 8 }}>
+                      <input
+                        type="text"
+                        placeholder={`Reply to ${msgActive.student_name}…`}
+                        value={msgInput}
+                        onChange={e => setMsgInput(e.target.value)}
+                        onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsgReply(); } }}
+                        disabled={msgSending}
+                        style={{ flex: 1, padding: '9px 12px', borderRadius: 9, border: '1px solid #e5e7eb', fontSize: 13.5 }}
+                      />
+                      <button
+                        onClick={sendMsgReply}
+                        disabled={!msgInput.trim() || msgSending}
+                        style={{ ...btn(true), opacity: !msgInput.trim() || msgSending ? 0.5 : 1 }}
+                      >
+                        Send
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <div style={{ margin: 'auto', color: '#9ca3af', fontSize: 13 }}>Select a student to view the conversation.</div>
+                )}
+              </div>
             </div>
+          )}
+
+          {/* ══════════════════ SUGGESTION BOX ══════════════════ */}
+          {activeTab === 'suggestions' && (
+            <SuggestionBoxPage />
           )}
 
           {/* ══════════════════ SCHEDULE ══════════════════ */}
